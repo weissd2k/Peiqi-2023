@@ -112,12 +112,14 @@ def ini_rate(t, qt):
         r[i] = qt[i][1] / t[i][1]
     return r
 
-def order_analysis(ini_rates, C0):
+def order_analysis(r, C0):
     ini_conc = C0.reshape(-1, 1)
+    ini_rates = r.reshape(-1, 1)
     model = LinearRegression()
     model.fit(np.log(ini_conc), np.log(ini_rates))
-    order = float(model.coef_[0])
-    return order
+    order = float(model.coef_[0][0])
+    r_pred = model.predict(np.log(ini_conc))
+    return order, r_pred
 
 # Model analysis
 def rsquared(qt, q_model):
@@ -157,88 +159,88 @@ def error_analysis(t, qt, q_model, order, func, C0=None, Cs=None):
     return qe_err, k_err
 
 # Result visualisation
-def plot_single_data(t, qt, C0, Cs, params, units):
+def plot_single_data(t, qt, C0, Cs, params):
     t_model = np.linspace(0, max(t)*1.1, 100)
     fig, axs = plt.subplots(2, 3, figsize=(12, 8))
     axs[0,0].scatter(t, qt, label = 'experimental')
     axs[0,0].plot(t_model, ZO_getQ(t_model, params[0]), label = 'model')
     axs[0,0].legend(loc='lower right')
-    axs[0,0].set_xlabel(f'Time t ({units[0]})')
-    axs[0,0].set_ylabel(f'Absorbate concentration qt ({units[1]})')
+    axs[0,0].set_xlabel('Time t (min)')
+    axs[0,0].set_ylabel('Absorbate concentration qt (mg/g)')
     axs[0,0].set_title('linear ZO')
     axs[0,1].scatter(t, qt, label = 'experimental')
     axs[0,1].plot(t_model, PFO_getQ(t_model, params[1], params[2]), label = 'model')
     axs[0,1].legend(loc='lower right')
-    axs[0,1].set_xlabel(f'Time t ({units[0]})')
-    axs[0,1].set_ylabel(f'Absorbate concentration qt ({units[1]})')
+    axs[0,1].set_xlabel('Time t (min)')
+    axs[0,1].set_ylabel('Absorbate concentration qt (mg/g)')
     axs[0,1].set_title('linear PFO')
     axs[0,2].scatter(t, qt, label = 'experimental')
     axs[0,2].plot(t_model, PFO_getQ(t_model, params[3], params[4]), label = 'model')
     axs[0,2].legend(loc='lower right')
-    axs[0,2].set_xlabel(f'Time t ({units[0]})')
-    axs[0,2].set_ylabel(f'Absorbate concentration qt ({units[1]})')
+    axs[0,2].set_xlabel('Time t (min)')
+    axs[0,2].set_ylabel('Absorbate concentration qt (mg/g)')
     axs[0,2].set_title('nonlinear PFO')
     axs[1,0].scatter(t, qt, label = 'experimental')
     axs[1,0].plot(t_model, PSO_getQ(t_model, params[5], params[6]), label = 'model')
     axs[1,0].legend(loc='lower right')
-    axs[1,0].set_xlabel(f'Time t ({units[0]})')
-    axs[1,0].set_ylabel(f'Absorbate concentration qt ({units[1]})')
+    axs[1,0].set_xlabel('Time t (min)')
+    axs[1,0].set_ylabel('Absorbate concentration qt (mg/g)')
     axs[1,0].set_title('linear PSO')
     axs[1,1].scatter(t, qt, label = 'experimental')
     axs[1,1].plot(t_model, PSO_getQ(t_model, params[7], params[8]), label = 'model')
     axs[1,1].legend(loc='lower right')
-    axs[1,1].set_xlabel(f'Time t ({units[0]})')
-    axs[1,1].set_ylabel(f'Absorbate concentration qt ({units[1]})')
+    axs[1,1].set_xlabel('Time t (min)')
+    axs[1,1].set_ylabel('Absorbate concentration qt (mg/g)')
     axs[1,1].set_title('nonlinear PSO')
     axs[1,2].scatter(t, qt, label = 'experimental')
     axs[1,2].plot(t_model, rPSO_getQ(t_model, params[9], params[10], C0, Cs), label = 'model')
     axs[1,2].legend(loc='lower right')
-    axs[1,2].set_xlabel(f'Time t ({units[0]})')
-    axs[1,2].set_ylabel(f'Absorbate concentration qt ({units[1]})')
+    axs[1,2].set_xlabel('Time t (min)')
+    axs[1,2].set_ylabel('Absorbate concentration qt (mg/g)')
     axs[1,2].set_title('nonlinear rPSO')
     plt.tight_layout()
     plt.savefig('../result/result_image.png')
 
-def plot_multi_data(t, qt, C0, ini_rate, order, params, units):
+def plot_multi_data(t, qt, C0, ini_rate, order, r_pred, params):
     fig, axs = plt.subplots(1, 2, figsize=(12, 8))
     axs[0].scatter(np.log(C0), np.log(ini_rate))
-    axs[0].plot(np.log(C0), np.log(ini_rate))
-    axs[0].set_xlabel(f'Concentration C0 ({units[2]})')
-    axs[0].set_ylabel(f'Rate ({units[4]})')
+    axs[0].plot(np.log(C0), r_pred)
+    axs[0].set_xlabel('log C0 (mg/L)')
+    axs[0].set_ylabel('log rate (mg/g min-1)')
     axs[0].set_title('Initial Rate vs. Initial Concentration')
-    if order == 0:
+    if round(order) == 0:
         for i in range(len(qt)):
             t_model = np.linspace(0, max(t[i])*1.1, 100)
             axs[1].scatter(t[i], qt[i], label = f'experimental data_{i+1} ')
             axs[1].plot(t_model, ZO_getQ(t_model, params[i]), label = f'model data_{i+1} ')
         axs[1].legend(loc='lower right')
-        axs[1].set_xlabel(f'Time t ({units[0]})')
-        axs[1].set_ylabel(f'Absorbate concentration qt ({units[1]})')
+        axs[1].set_xlabel('Time t (min)')
+        axs[1].set_ylabel('Absorbate concentration qt (mg/g)')
         axs[1].set_title('linear ZO')
-    elif order == 1:
+    elif round(order) == 1:
         for i in range(len(qt)):
             t_model = np.linspace(0, max(t[i])*1.1, 100)
             axs[1].scatter(t[i], qt[i], label = f'experimental data_{i+1}')
             axs[1].plot(t_model, PFO_getQ(t_model, params[2*i], params[2*i+1]), label = f'model data_{i+1}')
         axs[1].legend(loc='lower right')
-        axs[1].set_xlabel(f'Time t ({units[0]})')
-        axs[1].set_ylabel(f'Absorbate concentration qt ({units[1]})')
+        axs[1].set_xlabel('Time t (min)')
+        axs[1].set_ylabel('Absorbate concentration qt (mg/g)')
         axs[1].set_title('nonlinear PFO')
-    elif order == 2:
+    elif round(order) == 2:
         for i in range(len(qt)):
             t_model = np.linspace(0, max(t[i])*1.1, 100)
             axs[1].scatter(t[i], qt[i], label = f'experimental data_{i+1}')
             axs[1].plot(t_model, PSO_getQ(t_model, params[2*i], params[2*i+1]), label = f'model data_{i+1}')
         axs[1].legend(loc='lower right')
-        axs[1].set_xlabel(f'Time t ({units[0]})')
-        axs[1].set_ylabel(f'Absorbate concentration qt ({units[1]})')
+        axs[1].set_xlabel('Time t (min)')
+        axs[1].set_ylabel('Absorbate concentration qt (mg/g)')
         axs[1].set_title('nonlinear PSO')
     else:
         for i in range(len(qt)):
             axs[1].scatter(t[i], qt[i], label = f'dataset{i+1}')
         axs[1].legend(loc='lower right')
-        axs[1].set_xlabel(f'Time t ({units[0]})')
-        axs[1].set_ylabel(f'Absorbate concentration qt ({units[1]})')
+        axs[1].set_xlabel('Time t (min)')
+        axs[1].set_ylabel('Absorbate concentration qt (mg/g)')
         axs[1].set_title('experimental data')
     plt.tight_layout()
     plt.savefig('../result/result_image.png')

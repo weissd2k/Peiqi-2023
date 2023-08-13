@@ -25,7 +25,6 @@ class GUI(QMainWindow):
         qt = [np.array(list(map(float, x.split(',')))) for x in self.amount_of_absorbate.toPlainText().split('\n')]
         C0 = np.array(list(map(float,self.concentration_of_absorbate.text().split(","))))
         Cs = np.array(list(map(float,self.concentration_of_absorbent.text().split(","))))
-        units = [self.t_unit.text(), self.qt_unit.text(), self.c0_unit.text(), self.cs_unit.text()]
 
         if len(t) == len(qt) and all(t[i].shape == qt[i].shape for i in range(len(qt))) and len(qt) == len(C0):
             if len(qt) == 1:
@@ -73,13 +72,12 @@ class GUI(QMainWindow):
                     ['Nonlinear rPSO', f'{k2_r:.6f}', f'{qe2_r:.6f}', f'{r_sq2_r:.6f}']
                     ]
                 data = "\n".join(" | ".join(row) for row in table)
-                fc.plot_single_data(t[0], qt[0], C0[0], Cs[0], params, units)
+                fc.plot_single_data(t[0], qt[0], C0[0], Cs[0], params)
 
             else:
                 ini_rates = fc.ini_rate(t, qt)
-                order = fc.order_analysis(ini_rates, C0)
+                order, r_pred = fc.order_analysis(ini_rates, C0)
 
-                units.append(f'{units[1]}/{units[0]}')
                 params = []
                 if round(order) == 0:
                     result = f'rate = k[adsorbate]^{order:.2f}\nZero order model is applied to simulate the data.\n'
@@ -117,7 +115,7 @@ class GUI(QMainWindow):
                     result = f'rate = k[adsorbate]^{order:.2f}\nBeyond our availability.'
                     data = None
 
-                fc.plot_multi_data(t, qt, C0, ini_rates, order, params, units)
+                fc.plot_multi_data(t, qt, C0, ini_rates, order, r_pred, params)
             
             self.result_data.append(result)
             self.result_data.append(data)
@@ -146,10 +144,6 @@ class GUI(QMainWindow):
         self.amount_of_absorbate.clear()
         self.concentration_of_absorbate.clear()
         self.concentration_of_absorbent.clear()
-        self.t_unit.clear()
-        self.qt_unit.clear()
-        self.c0_unit.clear()
-        self.cs_unit.clear()
         self.result_data.clear()
         self.result_plot.clear()
 
