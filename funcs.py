@@ -20,7 +20,7 @@ def ZO_linear(t, qt):
 
     q_model = ZO_getQ(t, k0)
     r_sq = rsquared(qt, q_model)
-    return k0, r_sq
+    return k0, r_sq, q_model
 
 # First order model
 def PFO_getQ(t, qe, k1):
@@ -40,17 +40,17 @@ def PFO_linear(t, qt):
     
     q_model = PFO_getQ(t, qe, k1)
     r_sq = rsquared(qt, q_model)
-    return qe, k1, r_sq
+    return qe, k1, r_sq, q_model
 
 def PFO_nonlinear(t, qt):
-    p1, p2, _ = PFO_linear(t, qt)
+    p1, p2, _, _ = PFO_linear(t, qt)
     p0 = np.array([p1,p2])
     popt, pcov = curve_fit(PFO_getQ, t, qt, p0=p0)
     qe, k1 = popt
 
     q_model = PFO_getQ(t, qe, k1)
     r_sq = rsquared(qt, q_model)
-    return qe, k1, r_sq
+    return qe, k1, r_sq, q_model
 
 # Second order model
 def PSO_getQ(t, qe, k2):
@@ -69,17 +69,17 @@ def PSO_linear(t, qt):
 
     q_model = PSO_getQ(t, qe, k2)
     r_sq = rsquared(qt, q_model)
-    return qe, k2, r_sq
+    return qe, k2, r_sq, q_model
 
 def PSO_nonlinear(t, qt):
-    p1, p2, _ = PSO_linear(t, qt)
+    p1, p2, _, _ = PSO_linear(t, qt)
     p0 = np.array([p1, p2])
     popt, pcov = curve_fit(PSO_getQ, t, qt, p0=p0)
     qe, k2 = popt
 
     q_model = PSO_getQ(t, qe, k2)
     r_sq = rsquared(qt, q_model)
-    return qe, k2, r_sq
+    return qe, k2, r_sq, q_model
 
 def rPSO_getQ(t, qe, kprime, C0, Cs):
     dt = t[-1] / 1000
@@ -94,7 +94,7 @@ def rPSO_getQ(t, qe, kprime, C0, Cs):
     return q_model
 
 def rPSO_nonlinear(t, qt, C0, Cs):
-    p1, p2, _ = PSO_nonlinear(t, qt)
+    p1, p2, _, _ = PSO_nonlinear(t, qt)
     p0 = np.array([p1, p2 * p1**2 / C0])
 
     rPSO_getQ_fixed = partial(rPSO_getQ, C0=C0, Cs=Cs)
@@ -103,7 +103,7 @@ def rPSO_nonlinear(t, qt, C0, Cs):
 
     q_model = rPSO_getQ(t, qe, kprime, C0, Cs)
     r_sq = rsquared(qt, q_model)
-    return qe, kprime, r_sq
+    return qe, kprime, r_sq, q_model
 
 # Multiple datasets
 def ini_rate(t, qt):
@@ -132,7 +132,7 @@ def error_analysis(t, qt, q_model, order, func, C0=None, Cs=None):
         k_list = np.zeros(100)
         for i in range(100):
             q_sim = q_model + norm.ppf(np.random.rand(len(qt)), 0, std)
-            k_list[i], _ = func(t, q_sim)
+            k_list[i], _, _ = func(t, q_sim)
         k_list = sorted(k_list)
         k_err = (k_list[94] - k_list[5]) / 2
         qe_err = None
@@ -141,7 +141,7 @@ def error_analysis(t, qt, q_model, order, func, C0=None, Cs=None):
         k_list = np.zeros(100)
         for i in range(100):
             q_sim = q_model + norm.ppf(np.random.rand(len(qt)), 0, std)
-            qe_list[i], k_list[i], _ = func(t, q_sim, C0, Cs)
+            qe_list[i], k_list[i], _, _ = func(t, q_sim, C0, Cs)
         qe_list = sorted(qe_list)
         k_list = sorted(k_list)
         qe_err = (qe_list[94] - qe_list[5]) / 2
@@ -151,7 +151,7 @@ def error_analysis(t, qt, q_model, order, func, C0=None, Cs=None):
         k_list = np.zeros(100)
         for i in range(100):
             q_sim = q_model + norm.ppf(np.random.rand(len(qt)), 0, std)
-            qe_list[i], k_list[i], _ = func(t, q_sim)
+            qe_list[i], k_list[i], _, _ = func(t, q_sim)
         qe_list = sorted(qe_list)
         k_list = sorted(k_list)
         qe_err = (qe_list[94] - qe_list[5]) / 2
