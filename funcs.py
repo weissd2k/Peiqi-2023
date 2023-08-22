@@ -45,7 +45,7 @@ def PFO_linear(t, qt):
 def PFO_nonlinear(t, qt):
     p1, p2, _, _ = PFO_linear(t, qt)
     p0 = np.array([p1,p2])
-    popt, pcov = curve_fit(PFO_getQ, t, qt, p0=p0)
+    popt, pcov = curve_fit(PFO_getQ, t, qt, p0=p0, maxfev=1000000)
     qe, k1 = popt
 
     q_model = PFO_getQ(t, qe, k1)
@@ -74,7 +74,7 @@ def PSO_linear(t, qt):
 def PSO_nonlinear(t, qt):
     p1, p2, _, _ = PSO_linear(t, qt)
     p0 = np.array([p1, p2])
-    popt, pcov = curve_fit(PSO_getQ, t, qt, p0=p0)
+    popt, pcov = curve_fit(PSO_getQ, t, qt, p0=p0, maxfev=1000000)
     qe, k2 = popt
 
     q_model = PSO_getQ(t, qe, k2)
@@ -98,7 +98,7 @@ def rPSO_nonlinear(t, qt, C0, Cs):
     p0 = np.array([p1, p2 * p1**2 / C0])
 
     rPSO_getQ_fixed = partial(rPSO_getQ, C0=C0, Cs=Cs)
-    popt, pcov = curve_fit(rPSO_getQ_fixed, t, qt, p0=p0)
+    popt, pcov = curve_fit(rPSO_getQ_fixed, t, qt, p0=p0, maxfev=1000000)
     qe, kprime = popt
 
     q_model = rPSO_getQ(t, qe, kprime, C0, Cs)
