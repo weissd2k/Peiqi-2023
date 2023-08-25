@@ -1,0 +1,5 @@
+numpy
+matplotlib
+scipy
+scikit-learn
+pyqt5==5.15

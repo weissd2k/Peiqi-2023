@@ -1,0 +1,69 @@
+This reaction is best simulated with nonlinear PSO model - second order with respect to adsorbate.
+Model parameters:
+k2: 0.584692 +- 32085214.583241 (mg/g)-1min-1
+qe: 0.365323 +- 0.063502 mg/g
+R^2: 0.910029
+
+Model             | k       | qe      | R^2
+Linear ZO       | 0.002133 +- 0.003373 |    /    | -1.953684
+Linear PFO      | 0.031523 +- 0.019498 | 0.281850 +- 0.382509 | -0.328992
+Nonlinear PFO | 0.159480 +- 0.065602 | 0.329250 +- 0.042444 | 0.908839
+Linear PSO      | 0.250738 +- 0.690794 | 0.407831 +- 0.114113 | 0.849398
+Nonlinear PSO | 0.584692 +- 32085214.583241 | 0.365323 +- 0.063502 | 0.910029
+Nonlinear rPSO | 0.036618 +- 0.037503 | 0.445068 +- 0.935437 | 0.909322
+
+
+This reaction is best simulated with nonlinear PFO model - first order with respect to adsorbate.
+Model parameters:
+k1: 0.038516 +- 0.006011 min-1
+qe: 1.332509 +- 0.090496 mg/g
+R^2: 0.990412
+
+Model             | k       | qe      | R^2
+Linear ZO       | 0.010377 +- 0.007746 |    /    | 0.132537
+Linear PFO      | 0.038888 +- 0.006429 | 1.266047 +- 0.358988 | 0.982752
+Nonlinear PFO | 0.038516 +- 0.006011 | 1.332509 +- 0.090496 | 0.990412
+Linear PSO      | 0.022555 +- 0.011672 | 1.643881 +- 0.367941 | 0.976731
+Nonlinear PSO | 0.021968 +- 0.009393 | 1.685237 +- 0.217576 | 0.978717
+Nonlinear rPSO | 0.004757 +- 0.001411 | 2.309539 +- 0.884683 | 0.973419
+
+
+This reaction is best simulated with nonlinear rPSO model - second order with respect to adsorbate.(initial concentrations taken into account)
+Model parameters:
+k2: 0.004497 +- 0.000568 (mg/g)-1min-1
+qe: 4.077807 +- 0.180205 mg/g
+R^2: 0.993159
+
+Model             | k       | qe      | R^2
+Linear ZO       | 0.013234 +- 0.012858 |    /    | -0.696722
+Linear PFO      | 0.021884 +- 0.005914 | 2.942379 +- 1.902882 | 0.595213
+Nonlinear PFO | 0.041736 +- 0.010091 | 3.395449 +- 0.236305 | 0.958043
+Linear PSO      | 0.012867 +- 0.003177 | 3.931263 +- 0.190131 | 0.988550
+Nonlinear PSO | 0.014089 +- 0.002801 | 3.844290 +- 0.180700 | 0.989365
+Nonlinear rPSO | 0.004497 +- 0.000568 | 4.077807 +- 0.180205 | 0.993159
+
+
+This reaction is best simulated with nonlinear rPSO model - second order with respect to adsorbate.(initial concentrations taken into account)
+Model parameters:
+k2: 0.005884 +- 0.001792 (mg/g)-1min-1
+qe: 9.469998 +- 0.987411 mg/g
+R^2: 0.955405
+
+Model             | k       | qe      | R^2
+Linear ZO       | 0.031233 +- 0.028415 |    /    | -0.849952
+Linear PFO      | 0.019687 +- 0.005756 | 7.537322 +- 4.060840 | 0.556204
+Nonlinear PFO | 0.044820 +- 0.020120 | 7.913485 +- 0.888034 | 0.870249
+Linear PSO      | 0.004881 +- 0.003119 | 9.565544 +- 1.235572 | 0.931287
+Nonlinear PSO | 0.007052 +- 0.003135 | 8.847948 +- 0.791690 | 0.941151
+Nonlinear rPSO | 0.005884 +- 0.001792 | 9.469998 +- 0.987411 | 0.955405
+
+
+rate = k[adsorbate]^0.81
+Nonlinear PFO model is applied to simulate the data.
+
+dataset | k1 (min-1) | qe (mg/g) | R^2
+1 | 0.159480 +- 0.063904 | 0.329250 +- 0.031096 | 0.908839
+2 | 0.038516 +- 0.005041 | 1.332509 +- 0.073696 | 0.990412
+3 | 0.041736 +- 0.010164 | 3.395449 +- 0.210910 | 0.958043
+4 | 0.044820 +- 0.020830 | 7.913485 +- 1.018123 | 0.870249
+

@@ -1,0 +1,16 @@
+name: px122
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - pip
+  - python=3.9
+  - notebook=6.4
+  - numpy=1.23
+  - matplotlib=3.4
+  - scipy=1.9
+  - scikit-learn=1.1
+  - pip:
+    - -r requirements.txt

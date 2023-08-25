@@ -1,0 +1,53 @@
+This reaction is best simulated with nonlinear PSO model - second order with respect to adsorbate.
+Model parameters:
+k2: 0.006949 +- 0.001862 (mg/g)-1min-1
+qe: 1.910565 +- 0.105903 mg/g
+R^2: 0.987024
+
+Model             | k       | qe      | R^2
+Linear ZO       | 0.002628 +- 0.001800 |    /    | -0.234293
+Linear PFO      | 0.008432 +- 0.002299 | 1.290145 +- 0.836024 | 0.647749
+Nonlinear PFO | 0.011054 +- 0.002022 | 1.624828 +- 0.063999 | 0.980638
+Linear PSO      | 0.007955 +- 0.001932 | 1.866556 +- 0.095468 | 0.986003
+Nonlinear PSO | 0.006949 +- 0.001862 | 1.910565 +- 0.105903 | 0.987024
+Nonlinear rPSO | 0.002893 +- 0.000491 | 2.542673 +- 0.363964 | 0.986643
+
+
+This reaction is best simulated with nonlinear PSO model - second order with respect to adsorbate.
+Model parameters:
+k2: 0.003912 +- 0.001039 (mg/g)-1min-1
+qe: 2.738557 +- 0.146063 mg/g
+R^2: 0.990879
+
+Model             | k       | qe      | R^2
+Linear ZO       | 0.003789 +- 0.002256 |    /    | 0.017327
+Linear PFO      | 0.009691 +- 0.001490 | 2.011225 +- 0.549366 | 0.927649
+Nonlinear PFO | 0.009642 +- 0.001036 | 2.269741 +- 0.060153 | 0.990758
+Linear PSO      | 0.004508 +- 0.001298 | 2.659299 +- 0.151664 | 0.989869
+Nonlinear PSO | 0.003912 +- 0.001039 | 2.738557 +- 0.146063 | 0.990879
+Nonlinear rPSO | 0.002190 +- 0.000427 | 3.584668 +- 0.453084 | 0.989007
+
+
+This reaction is best simulated with nonlinear PSO model - second order with respect to adsorbate.
+Model parameters:
+k2: 0.002727 +- 0.000540 (mg/g)-1min-1
+qe: 3.449745 +- 0.172853 mg/g
+R^2: 0.993604
+
+Model             | k       | qe      | R^2
+Linear ZO       | 0.004776 +- 0.002716 |    /    | 0.150626
+Linear PFO      | 0.009077 +- 0.001124 | 2.720753 +- 0.436098 | 0.989549
+Nonlinear PFO | 0.008799 +- 0.000970 | 2.815375 +- 0.086038 | 0.993279
+Linear PSO      | 0.003101 +- 0.000729 | 3.356349 +- 0.157640 | 0.992841
+Nonlinear PSO | 0.002727 +- 0.000540 | 3.449745 +- 0.172853 | 0.993604
+Nonlinear rPSO | 0.001810 +- 0.000289 | 4.380576 +- 0.452121 | 0.991988
+
+
+rate = k[adsorbate]^0.48
+Zero order model is applied to simulate the data.
+
+dataset | k0 (mg/gmin-1) | R^2
+1 | 0.002628 +- 0.001582 | -0.234293
+2 | 0.003789 +- 0.002260 | 0.017327
+3 | 0.004776 +- 0.002515 | 0.150626
+

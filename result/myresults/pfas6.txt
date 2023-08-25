@@ -1,0 +1,44 @@
+This reaction is best simulated with nonlinear PFO model - first order with respect to adsorbate.
+Model parameters:
+k1: 0.010076 +- 0.003639 min-1
+qe: 1.040075 +- 0.223568 mg/g
+R^2: 0.971506
+
+Model             | k       | qe      | R^2
+Linear ZO       | 0.005217 +- 0.001067 |    /    | 0.852055
+Linear PFO      | 0.022559 +- 0.007871 | 0.974452 +- 0.514644 | 0.637647
+Nonlinear PFO | 0.010076 +- 0.003639 | 1.040075 +- 0.223568 | 0.971506
+Linear PSO      | 0.010452 +- 0.096611 | 1.181656 +- 1.334539 | 0.959953
+Nonlinear PSO | 0.004560 +- 0.187697 | 1.567780 +- 1.056301 | 0.971001
+Nonlinear rPSO | 0.000744 +- 0.000462 | 2.734277 +- 12351941135.260880 | 0.970770
+
+
+This reaction is best simulated with nonlinear rPSO model - second order with respect to adsorbate.(initial concentrations taken into account)
+Model parameters:
+k2: 0.001807 +- 0.000387 (mg/g)-1min-1
+qe: 0.460344 +- 0.059848 mg/g
+R^2: 0.984240
+
+Model             | k       | qe      | R^2
+Linear ZO       | 0.001832 +- 0.001176 |    /    | -0.263249
+Linear PFO      | 0.027934 +- 0.007209 | 0.291301 +- 0.149454 | 0.753629
+Nonlinear PFO | 0.053515 +- 0.013221 | 0.313326 +- 0.023647 | 0.952785
+Linear PSO      | 0.161422 +- 0.059837 | 0.371746 +- 0.029154 | 0.979544
+Nonlinear PSO | 0.181451 +- 0.050387 | 0.361694 +- 0.020443 | 0.980508
+Nonlinear rPSO | 0.001807 +- 0.000387 | 0.460344 +- 0.059848 | 0.984240
+
+
+This reaction is best simulated with nonlinear rPSO model - second order with respect to adsorbate.(initial concentrations taken into account)
+Model parameters:
+k2: 0.002295 +- 0.000337 (mg/g)-1min-1
+qe: 0.227467 +- 0.018194 mg/g
+R^2: 0.989746
+
+Model             | k       | qe      | R^2
+Linear ZO       | 0.000828 +- 0.000803 |    /    | -1.645906
+Linear PFO      | 0.027214 +- 0.011402 | 0.110053 +- 0.130973 | -0.648804
+Nonlinear PFO | 0.122998 +- 0.024525 | 0.167618 +- 0.007740 | 0.953347
+Linear PSO      | 0.670934 +- 0.244265 | 0.190830 +- 0.010078 | 0.982419
+Nonlinear PSO | 0.839748 +- 0.141217 | 0.185266 +- 0.005902 | 0.986994
+Nonlinear rPSO | 0.002295 +- 0.000337 | 0.227467 +- 0.018194 | 0.989746
+
