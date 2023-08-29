@@ -15,11 +15,11 @@ To run this program locally, you need to install the software in the command lin
 
 1. Clone this repository:
 
-    `git clone https://github.com/ese-msc-2022/irp-px122.git`
+    `git clone https://github.com/weissd2k/Peiqi-2023.git`
 
 2. Navigate to this repository folder:
 
-    `cd irp-px122`
+    `cd Peiqi-2023`
 
 3. Create the required environment named 'px122':
 
