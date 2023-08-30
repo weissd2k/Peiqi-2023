@@ -36,3 +36,5 @@ To run this program locally, you need to install the software in the command lin
 5. Run the `main.py` file:
 
     `python main.py`
+
+If you want to run this program online, there's no need to install this environment. You can just upload the `run_model.ipynb` file to Google Colab and play around with the codes.
